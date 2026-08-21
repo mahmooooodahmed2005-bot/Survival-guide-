@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ساهموا | دليل الناجين — قسم اللغة الإنجليزية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500;600;700&family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14213D;
+    --ink-deep:#0D1730;
+    --paper:#F2EAD3;
+    --paper-warm:#EADFC0;
+    --stamp:#A6373A;
+    --brass:#C29A3C;
+    --text-dark:#231D14;
+    --text-soft:#5C5442;
+    --green-ok:#3C6B4A;
+    --bg-body: var(--ink);
+    --bg-glow-1: rgba(194,154,60,0.10);
+    --bg-glow-2: rgba(166,55,58,0.10);
+    --text-body: var(--paper);
+    --text-body-soft: var(--paper-warm);
+    --tint-bg: rgba(242,234,211,0.05);
+    --tint-bg-hover: rgba(242,234,211,0.1);
+    --tint-border: rgba(242,234,211,0.18);
+    --footer-text: rgba(242,234,211,0.4);
+  }
+  html[data-theme="light"]{
+    --bg-body:#EDE6D3;
+    --bg-glow-1: rgba(20,33,61,0.05);
+    --bg-glow-2: rgba(166,55,58,0.06);
+    --text-body:#231D14;
+    --text-body-soft:#5C5442;
+    --paper:#FFFFFF;
+    --paper-warm:#F4EEDD;
+    --tint-bg: rgba(20,33,61,0.05);
+    --tint-bg-hover: rgba(20,33,61,0.09);
+    --tint-border: rgba(20,33,61,0.16);
+    --footer-text: rgba(35,29,20,0.55);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg-body);
+    background-image:
+      radial-gradient(circle at 15% 10%, var(--bg-glow-1), transparent 40%),
+      radial-gradient(circle at 85% 80%, var(--bg-glow-2), transparent 45%);
+    color:var(--text-body);
+    font-family:'Tajawal', sans-serif;
+    min-height:100vh;
+    transition:background .35s ease, color .35s ease;
+  }
+  ::selection{background:var(--brass); color:var(--ink-deep);}
+
+  /* theme toggle */
+  .theme-toggle{
+    position:fixed; top:18px; left:18px; z-index:50;
+    width:42px; height:42px; border-radius:50%;
+    border:1px solid var(--tint-border);
+    background:var(--tint-bg-hover); color:var(--text-body);
+    font-size:19px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .2s ease, background .2s ease;
+    backdrop-filter:blur(4px);
+  }
+  .theme-toggle:hover{transform:scale(1.08);}
+  .theme-toggle:active{transform:scale(0.94);}
+
+  /* hero */
+  .hero{
+    padding:60px 24px 26px; max-width:760px; margin:0 auto; text-align:center;
+  }
+  .eyebrow{
+    font-family:'Tajawal'; font-weight:700; letter-spacing:2px; font-size:13px;
+    color:var(--brass); text-transform:uppercase; display:inline-block;
+    border:1px solid rgba(194,154,60,0.5); padding:6px 18px; border-radius:999px; margin-bottom:20px;
+  }
+  h1{
+    font-family:'Aref Ruqaa', serif; font-weight:700;
+    font-size:clamp(34px,5.5vw,56px); margin:0 0 12px; line-height:1.25; color:var(--text-body);
+  }
+  h1 span{color:var(--brass);}
+  .hero p{
+    font-size:16.5px; color:var(--text-body-soft); max-width:560px;
+    margin:0 auto; line-height:1.9; opacity:0.92;
+  }
+  .stitch{
+    width:110px; height:2px; margin:24px auto;
+    background:repeating-linear-gradient(90deg,var(--brass) 0 10px, transparent 10px 18px);
+    opacity:0.7;
+  }
+
+  /* form shell */
+  .form-shell{
+    max-width:760px; margin:0 auto 70px; padding:0 24px;
+  }
+  .form-card{
+    background:var(--paper); color:var(--text-dark);
+    border-radius:12px; position:relative;
+    box-shadow:0 18px 45px rgba(0,0,0,0.35);
+    overflow:hidden; border:1px solid rgba(0,0,0,0.06);
+  }
+  .card-tab{
+    position:absolute; top:0; right:26px;
+    background:var(--stamp); color:#FBEDE2;
+    font-family:'Tajawal'; font-weight:700; font-size:12.5px;
+    padding:6px 16px 8px; border-radius:0 0 8px 8px; letter-spacing:.5px;
+  }
+  .form-inner{padding:40px 30px 28px;}
+
+  .section-title{
+    font-family:'Aref Ruqaa', serif; font-weight:700; font-size:22px;
+    color:var(--ink-deep); margin:26px 0 4px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .section-title .num{
+    width:30px; height:30px; border-radius:50%; flex-shrink:0;
+    background:rgba(194,154,60,0.2); color:var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Tajawal'; font-size:15px; font-weight:700;
+  }
+  .section-hint{
+    font-size:13.5px; color:var(--text-soft); margin:0 0 16px; line-height:1.8;
+  }
+  .section-divider{
+    height:1px; margin:26px 0 4px;
+    background:repeating-linear-gradient(90deg, rgba(0,0,0,0.15) 0 6px, transparent 6px 12px);
+  }
+
+  .field{margin-bottom:18px;}
+  .field-label{
+    font-size:13px; font-weight:700; letter-spacing:.3px; color:var(--stamp);
+    margin-bottom:7px; display:block;
+  }
+  .field-label .req{color:var(--stamp);}
+  .field-label .opt{margin-right:6px; font-size:11.5px; color:var(--text-soft); font-weight:500; opacity:.85;}
+
+  input[type="text"], input[type="tel"], select, textarea{
+    width:100%; background:#FBF7EA; border:1.5px solid rgba(20,33,61,0.16);
+    border-radius:10px; padding:12px 15px; font-family:'Tajawal';
+    font-size:15px; color:var(--text-dark); outline:none;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  input:focus, select:focus, textarea:focus{
+    border-color:var(--brass); box-shadow:0 0 0 3px rgba(194,154,60,0.18);
+  }
+  textarea{resize:vertical; min-height:84px; line-height:1.8;}
+  select{
+    appearance:none; -webkit-appearance:none; cursor:pointer;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%2314213D' stroke-width='2' fill='none' stroke-linecap='round'/></svg>");
+    background-repeat:no-repeat; background-position:left 15px center;
+    padding-left:38px;
+  }
+  .invalid{border-color:var(--stamp) !important; background:#FBF0EE !important;}
+  .err{
+    display:none; color:var(--stamp); font-size:12.5px; font-weight:700;
+    margin-top:6px; line-height:1.6;
+  }
+  .err.show{display:block;}
+
+  /* chips (subjects) */
+  .chips{display:flex; gap:9px; flex-wrap:wrap;}
+  .chip{
+    font-family:'Tajawal'; font-size:14px; font-weight:500;
+    padding:9px 18px; border-radius:999px; cursor:pointer;
+    border:1.5px solid rgba(20,33,61,0.22); background:#F6EFDB;
+    color:var(--text-dark); user-select:none; transition:all .18s ease;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .chip:hover{border-color:var(--brass);}
+  .chip.active{
+    background:var(--brass); border-color:var(--brass);
+    color:var(--ink-deep); font-weight:700;
+  }
+  .chip input{display:none;}
+
+  /* options (radios) */
+  .opts{display:flex; gap:10px; flex-wrap:wrap;}
+  .opt{
+    font-family:'Tajawal'; font-size:14px; font-weight:500;
+    padding:10px 18px; border-radius:12px; cursor:pointer;
+    border:1.5px solid rgba(20,33,61,0.22); background:#F6EFDB;
+    color:var(--text-dark); user-select:none; transition:all .18s ease;
+  }
+  .opt:hover{border-color:var(--brass);}
+  .opt.active{background:var(--ink-deep); border-color:var(--ink-deep); color:var(--brass); font-weight:700;}
+  .opt input{display:none;}
+
+  /* consent checkbox */
+  .consent{
+    display:flex; align-items:flex-start; gap:11px; cursor:pointer;
+    background:#F6EFDB; border:1.5px solid rgba(20,33,61,0.18);
+    border-radius:10px; padding:13px 15px; font-size:14px; line-height:1.8;
+    color:var(--text-dark); transition:border-color .2s ease;
+  }
+  .consent:hover{border-color:var(--brass);}
+  .consent input{width:19px; height:19px; margin-top:3px; accent-color:var(--green-ok); flex-shrink:0; cursor:pointer;}
+  .consent b{color:var(--ink-deep);}
+
+  /* explainer note */
+  .note-box{
+    background:rgba(194,154,60,0.13); border:1px dashed rgba(194,154,60,0.55);
+    border-radius:10px; padding:13px 16px; font-size:13.5px; line-height:1.9;
+    color:var(--text-dark); margin:4px 0 20px;
+  }
+  .note-box b{color:var(--stamp);}
+
+  /* submit */
+  .submit-btn{
+    width:100%; margin-top:8px; padding:15px 18px; border-radius:11px; border:none;
+    background:linear-gradient(90deg, var(--ink-deep), #1c2d54);
+    color:var(--brass); font-family:'Tajawal'; font-weight:700; font-size:16px;
+    cursor:pointer; display:flex; align-items:center; justify-content:center; gap:9px;
+    transition:opacity .2s ease, transform .15s ease;
+  }
+  .submit-btn:hover{opacity:.92;}
+  .submit-btn:active{transform:scale(0.99);}
+  .submit-btn:disabled{opacity:.55; cursor:wait;}
+
+  /* status */
+  .status{
+    display:none; margin-top:16px; border-radius:10px;
+    padding:15px 18px; font-size:14.5px; line-height:1.9; font-weight:500;
+  }
+  .status.ok{
+    display:block; background:#E4EFDF; color:var(--green-ok);
+    border:1px solid rgba(60,107,74,0.35);
+  }
+  .status.err{
+    display:block; background:#F3DADA; color:#8C2B2B;
+    border:1px solid rgba(140,43,43,0.35);
+  }
+  .status code{background:rgba(0,0,0,0.08); padding:2px 7px; border-radius:6px; font-size:12.5px;}
+  .dl-btn{
+    display:inline-block; margin-top:10px; font-family:'Tajawal'; font-weight:700;
+    font-size:13.5px; padding:9px 18px; border-radius:999px; cursor:pointer;
+    border:1.5px solid var(--green-ok); background:transparent; color:var(--green-ok);
+    text-decoration:none; transition:all .18s ease;
+  }
+  .dl-btn:hover{background:var(--green-ok); color:#fff;}
+
+  footer{
+    text-align:center; padding:24px 20px 46px;
+    color:var(--footer-text); font-size:13px; line-height:2;
+  }
+  footer a{
+    color:var(--brass); text-decoration:none; font-weight:700; font-size:13.5px;
+    border-bottom:1px dashed rgba(194,154,60,0.5); padding-bottom:2px;
+  }
+  footer a:hover{opacity:.85;}
+
+  /* ---------- stations (محطات الطريق) ---------- */
+  .add-station-btn{
+    width:100%; margin-top:6px; padding:13px 16px; border-radius:10px;
+    border:1.5px dashed rgba(194,154,60,0.6); background:transparent;
+    color:var(--brass); font-family:'Tajawal'; font-weight:700; font-size:14.5px;
+    cursor:pointer; transition:all .2s ease; display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .add-station-btn:hover{background:rgba(194,154,60,0.12);}
+  .station-row{
+    background:#F6EFDB; border:1.5px solid rgba(20,33,61,0.16);
+    border-radius:12px; padding:16px 16px 6px; margin-bottom:14px;
+    position:relative; transition:border-color .2s ease;
+  }
+  .station-row:focus-within{border-color:var(--brass);}
+  .station-head{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    margin-bottom:12px;
+  }
+  .station-title{
+    font-family:'Aref Ruqaa', serif; font-weight:700; font-size:18px;
+    color:var(--ink-deep); margin:0;
+  }
+  .station-title .st-num{color:var(--stamp); margin-left:6px;}
+  .station-del{
+    border:none; background:#F3DADA; color:#8C2B2B; width:30px; height:30px;
+    border-radius:50%; font-size:14px; cursor:pointer; font-weight:700;
+    transition:all .18s ease; flex-shrink:0;
+  }
+  .station-del:hover{background:#E8BEBE; transform:scale(1.06);}
+  .station-counter{
+    font-size:12.5px; color:var(--text-soft); margin:4px 0 14px; line-height:1.8;
+    background:rgba(194,154,60,0.1); border-radius:8px; padding:9px 13px;
+  }
+  .action-btns{display:flex; gap:9px; flex-wrap:wrap; margin-top:12px;}
+  .act-btn{
+    display:inline-flex; align-items:center; gap:6px; font-family:'Tajawal';
+    font-weight:700; font-size:12.5px; padding:10px 15px; border-radius:10px;
+    border:1.5px solid var(--green-ok); background:transparent; color:var(--green-ok);
+    cursor:pointer; text-decoration:none; transition:all .18s ease;
+  }
+  .act-btn:hover{background:var(--green-ok); color:#fff;}
+  .act-btn.telegram{border-color:#2AABEE; color:#1D8BC2;}
+  .act-btn.telegram:hover{background:#2AABEE; color:#fff;}
+
+  @media (max-width:560px){
+    .hero{padding:46px 16px 20px;}
+    .form-inner{padding:34px 18px 22px;}
+    .card-tab{right:16px;}
+    .chip{padding:8px 14px; font-size:13px;}
+    .opt{padding:9px 14px; font-size:13px;}
+    .station-row{padding:14px 12px 4px;}
+    .add-station-btn{padding:11px 14px; font-size:13.5px;}
+  }
+</style>
+</head>
+<body>
+
+  <button id="themeToggle" class="theme-toggle" title="بدّل المظهر" aria-label="بدّل المظهر">
+    <span id="themeIcon">🌙</span>
+  </button>
+
+  <section class="hero">
+    <span class="eyebrow">قسم اللغة الإنجليزية</span>
+    <h1>ساهموا <span>بالتجربة</span></h1>
+    <div class="stitch"></div>
+    <p>هذا النموذج هو وقود دليل الناجين — كل تجربة تنكتب إلنا هنا تتحول لمحتوى يفيد الطلاب اللي يجون بعدك. ما ياخذ أكثر من 5 دقايق.</p>
+  </section>
+
+  <div class="form-shell">
+    <div class="form-card">
+      <div class="card-tab">نموذج المساهمة</div>
+      <div class="form-inner">
+
+        <form id="contributeForm" novalidate>
+
+          <!-- ===== 1. معلوماتك ===== -->
+          <div class="section-title"><span class="num">١</span> معلوماتك (اختيارية)</div>
+          <p class="section-hint">نسجل مساهمتك باسمك أو بدون — قرارك. كل اللي نريده هو دقة المحتوى.</p>
+
+          <div class="field">
+            <label class="field-label" for="fName">الاسم <span class="opt">(اختياري — نحترم روح التعاون)</span></label>
+            <input type="text" id="fName" placeholder="مثال: علي حسين" autocomplete="name">
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="fStage">مرحلتك الدراسية الحالية <span class="req">*</span></label>
+            <select id="fStage">
+              <option value="">اختَر المرحلة...</option>
+              <option value="1">المرحلة الأولى</option>
+              <option value="2">المرحلة الثانية</option>
+              <option value="3">المرحلة الثالثة</option>
+              <option value="4">المرحلة الرابعة</option>
+              <option value="grad">خريج/ة</option>
+            </select>
+            <div class="err" id="errStage">اختَر مرحلتك الدراسية — نحتاجها عشان نعرف من وين تجي تجربتك.</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="fTelegram">حسابك على تلكرام <span class="opt">(اختياري — للتواصل إذا احتاج الدليل توضيح بنقطتك)</span></label>
+            <input type="text" id="fTelegram" placeholder="@username أو رقم الموبايل" dir="ltr" style="text-align:right;">
+          </div>
+
+          <div class="section-divider"></div>
+
+          <!-- ===== 2. المواد ===== -->
+          <div class="section-title"><span class="num">٢</span> المواد اللي تريد تشارك عنها</div>
+          <p class="section-hint">اختَر مادة أو أكثر — كل مادة مختارة تعني إنك راح تشارك تجربتك فيها.</p>
+
+          <div class="field">
+            <span class="field-label">المادة <span class="req">*</span></span>
+            <div class="chips" id="subjChips">
+              <label class="chip"><input type="checkbox" name="subject" value="الشعر">الشعر</label>
+              <label class="chip"><input type="checkbox" name="subject" value="القصة القصيرة">القصة القصيرة</label>
+              <label class="chip"><input type="checkbox" name="subject" value="المسرح">المسرح</label>
+              <label class="chip"><input type="checkbox" name="subject" value="اللغة / المهارات">اللغة / المهارات</label>
+              <label class="chip"><input type="checkbox" name="subject" value="أخرى">أخرى</label>
+            </div>
+            <input type="text" id="fSubjOther" placeholder="إذا اخترت (أخرى) — اكتب اسم المادة هنا..." style="margin-top:10px; display:none;">
+            <div class="err" id="errSubj">اختر مادة واحدة على الأقل حتى نعرف وين نضيف تجربتك.</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="fSem">الفصل الدراسي <span class="opt">(اختياري — إذا تذكر)</span></label>
+            <select id="fSem">
+              <option value="">غير متذكر</option>
+              <option value="1">الفصل الأول</option>
+              <option value="2">الفصل الثاني</option>
+              <option value="both">كلا الفصلين</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="fEval">تفاصيل التقييم <span class="opt">(اختياري — الشهري، اليومي، Presentation... بأرقام إذا تكدر)</span></label>
+            <input type="text" id="fEval" placeholder="مثال: شهري 10/15، يومي 5، بريزنتيشن 5/15">
+          </div>
+
+          <div class="section-divider"></div>
+
+          <!-- ===== 3. تجربتك ===== -->
+          <div class="section-title"><span class="num">٣</span> تجربتك — قلب النموذج</div>
+          <p class="section-hint">اكتب بأسلوبك، طول ما تشاء. عبّرات الطلاب الحقيقية هي اللي تفرق بالدليل.</p>
+
+          <div class="field">
+            <label class="field-label" for="fHelped">ما أكثر شي ساعدك بهالمادة؟ <span class="opt">(طريقة دكتور، ملزمة، روتين مذاكرة...)</span></label>
+            <textarea id="fHelped" placeholder="مثال: الدكتور يشرح بأمثلة من الحياة اليومية فصارت القصص أسهل أتذكرها..."></textarea>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="fMistake">أكبر خطأ أو تحدٍ واجهته؟ <span class="opt">(تحذير للطلاب الجدد)</span></label>
+            <textarea id="fMistake" placeholder="مثال: جمعت مذاكرة الشعر كله لين قبل الامتحان — انصدمت بحجمه..."></textarea>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="fTip">نصيحة بجملة أو جملتين للي يجون بعدك <span class="req">*</span></label>
+            <textarea id="fTip" placeholder="مثال: اگرو الشعر يوم بيومه، وخذوا ملاحظاتكم داخل المحاضرة نفسها..."></textarea>
+            <div class="err" id="errExp">شاركنا نصيحه أو تجربة واحدة على الأقل (من الحقول الثلاثة) — هذا روح النموذج.</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="fLinks">روابط مصادر أفادتك <span class="opt">(اختياري — ملازم، قنوات، PDFs متاحه قانونياً)</span></label>
+            <input type="text" id="fLinks" placeholder="رابط أو أكثر، مفصولة بفاصلة...">
+          </div>
+
+          <div class="section-divider"></div>
+
+          <!-- ===== 4. الموافقة ===== -->
+                    <div class="section-divider"></div>
+
+          <!-- ===== 4. محطات الطريق ===== -->
+          <div class="section-title"><span class="num">٤</span> محطات الطريق — قالب شرح المادة</div>
+          <p class="section-hint">هذي أهم إضافة — من هنا ينولد \"طريق النجاة\" حق المادة: تضيف محطة لكل جزء من المنهج وتكتب الشرح الكامل، والدليل ينشرها كخريطة طريق للطلاب الجدد. أضف قد ما تريد.</p>
+
+          <div class="station-counter">🧭 مثال: محطة ١) الخلفية التاريخية ٢) المدارس الأدبية ٣) تحليل كل عمل مقرر — وكل محطة بيها شرحها ومصادرها.</div>
+
+          <div id="stations"></div>
+
+          <button type="button" class="add-station-btn" id="addStationBtn">＋ أضف محطة</button>
+
+          <div class="section-divider"></div>
+
+<div class="section-title"><span class="num">٥</span> الانطباع والنشر</div>
+          <p class="section-hint">أخر خطوة — شكد تريد مساهمتك تظهر؟</p>
+
+          <div class="field">
+            <span class="field-label">انطباعك العام عن المادة <span class="opt">(اختياري)</span></span>
+            <div class="opts" id="impressionOpts">
+              <label class="opt"><input type="radio" name="impression" value="ممتعة">ممتعة</label>
+              <label class="opt"><input type="radio" name="impression" value="صعبة">صعبة</label>
+              <label class="opt"><input type="radio" name="impression" value="صعبة بس ممتعة">صعبة بس ممتعة</label>
+              <label class="opt"><input type="radio" name="impression" value="متوسطة">متوسطة</label>
+              <label class="opt"><input type="radio" name="impression" value="سهلة">سهلة</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="field-label">كيف تريد اسمك يظهر بالدليل؟</span>
+            <div class="opts" id="creditOpts">
+              <label class="opt"><input type="radio" name="credit" value="مجهول">مجهول بالكامل</label>
+              <label class="opt"><input type="radio" name="credit" value="الاسم الأول فقط">الاسم الأول فقط</label>
+              <label class="opt"><input type="radio" name="credit" value="الاسم الكامل">الاسم الكامل</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="consent">
+              <input type="checkbox" id="fConsent">
+              <span>أوافق على نشر مساهمتي ضمن <b>دليل الناجين</b> مع إمكانية تعديلها أو تلخيصها من قبل فريق الدليل، وحذف أي معلومات شخصية درجت عليها بالغلط. <span style="color:var(--stamp); font-weight:700;">*</span></span>
+            </label>
+            <div class="err" id="errConsent">بدون موافقتك ما نقدر ننشر محتواك — هذا الشرط إلزامي.</div>
+          </div>
+
+                    <div class="note-box" id="storageNote">
+            <b>⚙️ كيف توصلني مساهمتك؟</b> بدون أي خادم: زر الإرسال (تحت) يولّد ملف <b>HTML كامل</b> فيه كل إجاباتك والمحطات — ينزل على جهازك فوراً، وأنت ترسله لفريق الدليل على تلكرام (ملف واحد، ثواني). إذا فعّلنا لاحقاً رابط استقبال تلقائي (Formspree/Netlify)، يصير الإرسال مباشر من غير تحميل.
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">تجهيز المساهمة + تنزيل الملف 📦</button>
+
+          <div class="status" id="status"></div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    قسم اللغة الإنجليزية — أُنشئ بحب من طلاب لطلاب 🌿<br>
+    <a href="#">العودة إلى دليل الناجين</a>
+  </footer>
+
+<script>
+  // ============================================================
+  // ⚙️ إعدادات الاستقبال — عدّل هنا فقط
+  // ------------------------------------------------------------
+  // 1) بدون أي خادم: زر الإرسال يولّد ملف HTML فيه كل الإجابات
+  //    والمحطات ويحمّله الطالب، ثم يرسله لك على تلكرام/واتساب.
+  // 2) اختياري: حط رابط استقبال تلقائي (Formspree / Netlify Forms
+  //    / SheetDB) في FORM_ENDPOINT ويصير الإرسال مباشر بعد التنزيل.
+  const FORM_ENDPOINT = "";
+  // 3) رابط استلام المساهمات (تلكرام أو واتساب wa.me)
+  const RECEIVE_LINK = "https://t.me/finall_2026";
+  // ============================================================
+
+  const form = document.getElementById("contributeForm");
+  const statusBox = document.getElementById("status");
+  const submitBtn = document.getElementById("submitBtn");
+
+  /* ---- theme toggle ---- */
+  let isLight = false;
+  const themeToggle = document.getElementById("themeToggle");
+  const themeIcon = document.getElementById("themeIcon");
+  themeToggle.addEventListener("click", () => {
+    isLight = !isLight;
+    document.documentElement.setAttribute("data-theme", isLight ? "light" : "dark");
+    themeIcon.textContent = isLight ? "☀️" : "🌙";
+  });
+
+  /* ---- chips: subject ---- */
+  const subjChips = document.querySelectorAll("#subjChips .chip");
+  subjChips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      const inp = chip.querySelector("input");
+      inp.checked = !inp.checked;
+      chip.classList.toggle("active", inp.checked);
+      const other = document.getElementById("fSubjOther");
+      if (inp.value === "أخرى") {
+        other.style.display = inp.checked ? "block" : "none";
+        if (!inp.checked) other.value = "";
+      }
+      if (inp.checked) hideErr("errSubj");
+    });
+  });
+
+  /* ---- generic option groups (radios) ---- */
+  ["impressionOpts", "creditOpts"].forEach(groupId => {
+    document.querySelectorAll("#" + groupId + " .opt").forEach(opt => {
+      opt.addEventListener("click", () => {
+        document.querySelectorAll("#" + groupId + " .opt").forEach(o => o.classList.remove("active"));
+        const inp = opt.querySelector("input");
+        inp.checked = true;
+        opt.classList.add("active");
+      });
+    });
+  });
+
+  /* ---- helpers ---- */
+  function errEls(id){ return document.getElementById(id); }
+  function showErr(id){ const el = errEls(id); if (el) el.classList.add("show"); }
+  function hideErr(id){ const el = errEls(id); if (el) el.classList.remove("show"); }
+  function invalidate(inputId, errId){
+    const input = document.getElementById(inputId);
+    if (input) input.classList.add("invalid");
+    showErr(errId);
+  }
+  function clearInputState(inputId, errId){
+    const input = document.getElementById(inputId);
+    if (input) input.classList.remove("invalid");
+    hideErr(errId);
+  }
+  document.querySelectorAll("input, select, textarea").forEach(el => {
+    el.addEventListener("input", () => {
+      const map = {fStage:"errStage", fSubjOther:"errSubj", fTip:"errExp", fHelped:"errExp", fMistake:"errExp", fConsent:"errConsent"};
+      if (map[el.id]) clearInputState(el.id, map[el.id]);
+    });
+  });
+
+  /* ---- validation ---- */
+  function validate(){
+    let ok = true;
+    if (!document.getElementById("fStage").value){ invalidate("fStage", "errStage"); ok = false; }
+    const chosen = Array.from(document.querySelectorAll('input[name="subject"]:checked')).map(c => c.value);
+    const otherVal = document.getElementById("fSubjOther").value.trim();
+    if (chosen.length === 0 && !otherVal){ showErr("errSubj"); ok = false; }
+    const helped = document.getElementById("fHelped").value.trim();
+    const mistake = document.getElementById("fMistake").value.trim();
+    const tip = document.getElementById("fTip").value.trim();
+    if (!helped && !mistake && !tip){ invalidate("fTip", "errExp"); ok = false; }
+    if (!document.getElementById("fConsent").checked){ showErr("errConsent"); ok = false; }
+    return ok;
+  }
+
+  /* ---- payload ---- */
+  function buildPayload(){
+    return {
+      timestamp: new Date().toLocaleString("ar-IQ", {dateStyle:"short", timeStyle:"short"}),
+      name: document.getElementById("fName").value.trim(),
+      stage: document.getElementById("fStage").value,
+      telegram: document.getElementById("fTelegram").value.trim(),
+      subjects: Array.from(document.querySelectorAll('input[name="subject"]:checked')).map(c => c.value),
+      subject_other: document.getElementById("fSubjOther").value.trim(),
+      semester: document.getElementById("fSem").value,
+      evaluation: document.getElementById("fEval").value.trim(),
+      what_helped: document.getElementById("fHelped").value.trim(),
+      biggest_mistake: document.getElementById("fMistake").value.trim(),
+      advice: document.getElementById("fTip").value.trim(),
+      useful_links: document.getElementById("fLinks").value.trim(),
+      impression: (document.querySelector('input[name="impression"]:checked') || {}).value || "",
+      credit: (document.querySelector('input[name="credit"]:checked') || {}).value || "مجهول",
+      stations: []
+    };
+  }
+
+  /* ---- محطات الطريق ---- */
+  const stationsBox = document.getElementById("stations");
+  const addStationBtn = document.getElementById("addStationBtn");
+  const DEFAULT_STATION_PLACEHOLDERS = ["الخلفية التاريخية والعصور", "المدارس الأدبية والأعمال المقررة", "تحليل الأعمال ونصائح الامتحان"];
+  function makeStationRow(placeholderTitle){
+    const row = document.createElement("div");
+    row.className = "station-row";
+    row.innerHTML =
+      '<div class="station-head">' +
+        '<h4 class="station-title"><span class="st-num">المحطة 1</span> — طريق النجاة</h4>' +
+        '<button type="button" class="station-del" title="حذف المحطة">✕</button>' +
+      '</div>' +
+      '<div>' +
+        '<label class="field-label">اسم المحطة <span class="opt">(مثال: الخلفية التاريخية والمفاهيم)</span></label>' +
+        '<input type="text" class="st-title" placeholder="' + (placeholderTitle || "عنوان المحطة...") + '">' +
+      '</div>' +
+      '<div>' +
+        '<label class="field-label">الشرح الكامل / الملاحظات <span class="req">*</span></label>' +
+        '<textarea class="st-content" placeholder="اكتب الشرح بطريقتك — العناوين الرئيسية، النقاط المهمة، التحليلات، أبيات أو اقتباسات..."></textarea>' +
+      '</div>' +
+      '<div>' +
+        '<label class="field-label">المصادر / الروابط <span class="opt">(اختياري)</span></label>' +
+        '<input type="text" class="st-sources" placeholder="أسماء الملازم أو الروابط التي أفادتك...">' +
+      '</div>';
+    row.querySelector(".station-del").addEventListener("click", () => { row.remove(); renumberStations(); });
+    return row;
+  }
+  function renumberStations(){
+    stationsBox.querySelectorAll(".station-row").forEach((r, i) => {
+      r.querySelector(".st-num").textContent = "المحطة " + (i + 1);
+    });
+  }
+  function resetStations(){
+    stationsBox.innerHTML = "";
+    DEFAULT_STATION_PLACEHOLDERS.forEach(ph => stationsBox.appendChild(makeStationRow(ph)));
+    renumberStations();
+  }
+  addStationBtn.addEventListener("click", () => { stationsBox.appendChild(makeStationRow("")); renumberStations(); });
+  function collectStations(){
+    return Array.from(stationsBox.querySelectorAll(".station-row")).map((r, i) => ({
+      order: i + 1,
+      title: r.querySelector(".st-title").value.trim(),
+      content: r.querySelector(".st-content").value.trim(),
+      sources: r.querySelector(".st-sources").value.trim()
+    }));
+  }
+
+  /* ---- escape ---- */
+  function esc(s){
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  /* ---- build standalone HTML report ---- */
+  function buildReport(p){
+    const stageNames = {1:"المرحلة الأولى", 2:"المرحلة الثانية", 3:"المرحلة الثالثة", 4:"المرحلة الرابعة", grad:"خريج/ة"};
+    const semNames = {1:"الفصل الأول", 2:"الفصل الثاني", both:"كلا الفصلين"};
+    const subjStr = (p.subjects && p.subjects.length ? p.subjects.join("، ") : (p.subject_other || "—"));
+    let stationsHtml = "";
+    (p.stations || []).forEach(s => {
+      let block = '<div style="background:#F6EFDB;border:1px solid rgba(20,33,61,0.15);border-radius:10px;padding:14px 16px;margin-bottom:12px;">' +
+        '<h3 style="margin:0 0 6px;color:#A6373A;font-size:16px;">المحطة ' + s.order + ' — ' + esc(s.title || "بدون عنوان") + '</h3>';
+      if (s.content) block += '<p style="margin:0 0 6px;line-height:1.9;white-space:pre-wrap;color:#231D14;">' + esc(s.content) + '</p>';
+      if (s.sources) block += '<p style="margin:0;font-size:12.5px;color:#5C5442;"><b>المصادر:</b> ' + esc(s.sources) + '</p>';
+      block += '</div>';
+      stationsHtml += block;
+    });
+    const row = (label, val) => {
+      if (!val) return "";
+      return '<tr><td style="padding:8px 12px;border-bottom:1px dashed rgba(0,0,0,0.12);color:#5C5442;font-weight:700;width:38%;vertical-align:top;">' + label + '</td>' +
+        '<td style="padding:8px 12px;border-bottom:1px dashed rgba(0,0,0,0.12);color:#231D14;line-height:1.8;">' + val + '</td></tr>';
+    };
+    const stationsHead = (p.stations && p.stations.length) ? '<h2 style="font-size:18px;color:#0D1730;margin:24px 0 10px;">🧭 محطات الطريق — شرح المادة</h2>' +
+      '<p style="color:#5C5442;font-size:12.5px;margin:0 0 12px;">نسخة قابلة للنقل إلى صفحة المادة في موقع دليل الناجين.</p>' + stationsHtml :
+      '<h2 style="font-size:18px;color:#0D1730;margin:24px 0 10px;">🧭 محطات الطريق</h2><p style="color:#5C5442;font-size:13px;">بدون محطات.</p>';
+    return '<!DOCTYPE html>' +
+      '<html lang="ar" dir="rtl"><head><meta charset="UTF-8">' +
+      '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+      '<title>مساهمة — دليل الناجين</title>' +
+      '<style>body{margin:0;background:#14213D;font-family:Tahoma,Arial,sans-serif;padding:30px 14px;}' +
+      '.card{max-width:720px;margin:0 auto;background:#F2EAD3;border-radius:12px;padding:30px 26px;box-shadow:0 18px 45px rgba(0,0,0,0.45);}' +
+      'h1{font-size:25px;color:#14213D;margin:14px 0 4px;} h2{color:#A6373A;font-size:15px;margin:20px 0 8px;}' +
+      '.stamp{display:inline-block;background:#A6373A;color:#FBEDE2;font-size:11.5px;padding:5px 16px;border-radius:0 0 8px 8px;font-weight:700;}' +
+      '.muted{color:#5C5442;font-size:12.5px;margin:0 0 14px;} table{width:100%;border-collapse:collapse;font-size:13.5px;}' +
+      '.divider{height:1px;background:repeating-linear-gradient(90deg,#A6373A 0 6px,transparent 6px 12px);margin:20px 0;}</style></head><body>' +
+      '<div class="card"><span class="stamp">دليل الناجين — قسم اللغة الإنجليزية</span>' +
+      '<h1>مساهمة طالب/ة</h1>' +
+      '<p class="muted">أُنشئت في ' + esc(p.timestamp) + ' — من نموذج المساهمة الرسمي</p>' +
+      '<div class="divider"></div>' +
+      '<table>' +
+        row("الاسم", p.name ? esc(p.name) : "مجهول") +
+        row("المرحلة", stageNames[p.stage] || esc(p.stage)) +
+        row("المادة", esc(subjStr)) +
+        row("الفصل الدراسي", semNames[p.semester] || "") +
+        row("تفاصيل التقييم", p.evaluation ? esc(p.evaluation) : "") +
+        row("ما ساعدني في المادة", p.what_helped ? esc(p.what_helped) : "") +
+        row("أكبر خطأ / تحدٍ", p.biggest_mistake ? esc(p.biggest_mistake) : "") +
+        row("نصيحتي للي يجون بعدي", p.advice ? esc(p.advice) : "") +
+        row("روابط أفادتني", p.useful_links ? esc(p.useful_links) : "") +
+        row("الانطباع العام", p.impression ? esc(p.impression) : "") +
+        row("ظهور الاسم", p.credit ? esc(p.credit) : "") +
+      '</table>' +
+      '<div class="divider"></div>' +
+      stationsHead +
+      '<div class="divider"></div>' +
+      '<p class="muted">أُنشئ بحب من طلاب لطلاب 🌿 — محتوى غير رسمي.</p>' +
+      '</div></body></html>';
+  }
+
+  /* ---- download HTML report ---- */
+  function downloadReport(payload){
+    const html = buildReport(payload);
+    const blob = new Blob([html], {type:"text/html;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "dalil-contribution-" + new Date().toISOString().slice(0,10) + ".html";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+  }
+
+  /* ---- action buttons after submit ---- */
+  function addSendButtons(){
+    const wrap = document.createElement("div");
+    wrap.className = "action-btns";
+    const tg = document.createElement("a");
+    tg.href = RECEIVE_LINK;
+    tg.target = "_blank";
+    tg.rel = "noopener";
+    tg.className = "act-btn telegram";
+    tg.innerHTML = "✈️ إرسال الملف على تلكرام";
+    wrap.appendChild(tg);
+    statusBox.appendChild(wrap);
+  }
+  function addJsonBtn(payload){
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "dalil-contribution-data.json";
+    a.className = "act-btn";
+    a.textContent = "⬇ تنزيل بيانات JSON (اختياري)";
+    statusBox.appendChild(a);
+  }
+
+  /* ---- submit ---- */
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusBox.className = "status";
+    statusBox.innerHTML = "";
+    if (!validate()){
+      statusBox.className = "status err";
+      statusBox.textContent = "⚠️ رجّع الحقول المعلمة بالأحمر ثم أرسل مرة ثانية.";
+      statusBox.scrollIntoView({behavior:"smooth", block:"nearest"});
+      return;
+    }
+    const payload = buildPayload();
+    payload.stations = collectStations();
+    submitBtn.disabled = true;
+    submitBtn.textContent = "جارٍ التجهيز... ⏳";
+
+    let posted = false;
+    if (FORM_ENDPOINT){
+      try {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(payload)
+        });
+        posted = res.ok;
+      } catch(err){ posted = false; }
+    }
+
+    downloadReport(payload);
+
+    statusBox.className = "status ok";
+    statusBox.innerHTML =
+      "✅ جاهز! نزّل الملف <b>HTML</b> على جهازك وفيه كل بياناتك ومحطات الطريق." +
+      (posted ? "<br>— ووصلتنا نسخة تلقائية أيضاً ✔" :
+        "<br>— <b>الخطوة الأخيرة لك:</b> اضغط زر تلكرام بالأسفل وأرفق الملف الذي نزل (ملف واحد، ثواني).") +
+      "<br><small>الملف قابل للفتح بأي متصفح — راجعه قبل الإرسال.</small>";
+    addSendButtons();
+    addJsonBtn(payload);
+
+    form.reset();
+    subjChips.forEach(c => c.classList.remove("active"));
+    document.getElementById("fSubjOther").style.display = "none";
+    document.querySelectorAll(".opt").forEach(o => o.classList.remove("active"));
+    resetStations();
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "تجهيز المساهمة + تنزيل الملف 📦";
+    statusBox.scrollIntoView({behavior:"smooth", block:"nearest"});
+  });
+
+  /* ---- init: pre-add station rows ---- */
+  resetStations();
+
+</script>
+
+</body>
+</html>
