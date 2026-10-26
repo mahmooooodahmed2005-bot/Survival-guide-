@@ -1,0 +1,17 @@
+{
+  "name": "دليل الناجين — قسم اللغة الإنجليزية",
+  "short_name": "دليل الناجين",
+  "description": "دليل معرفي شامل عن الدكاترة والمواد بقسم اللغة الإنجليزية، جامعة ديالى.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#14213D",
+  "theme_color": "#14213D",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
