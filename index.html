@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -3001,6 +3001,11 @@ body.focus-lock{ overflow:hidden; }
   .faculty-filter-chip, .mini-tool-btn, .focus-read-btn, .bookmark-filter-btn, .medal-thanks-btn,
   .hof-list li.hof-medal, .stage-tab, .stage-num{ transition:none !important; animation:none !important; }
 }
+
+
+.road-content p{ font-size:14px; line-height:1.85; color:var(--text-dark); margin:0 0 10px; }
+.road-content p b{ color:var(--stamp); }
+.road-content .subject-guide p b:only-child{ font-family:'Tajawal',sans-serif; }
 </style>
 
 </head>
@@ -11528,10 +11533,10 @@ body.focus-lock{ overflow:hidden; }
 
 <script>
 /* ---- عداد الشكر المشترك بين كل الزوار ----
-   الأولوية: رابط Google Apps Script إن وُضع هنا (مضمون ومملوك لك)، وإلا خدمة counterapi.dev. وعند الفشل يرجع للعدّ المحلي. */
+   الأولوية: رابط Google Apps Script إن وُضع هنا (مضمون ومملوك لك)، وإلا دالة Netlify المرفقة (netlify/functions/thanks.mjs). وعند الفشل يرجع للعدّ المحلي. */
 window.THANKS_API_URL = '';
 (function(){
-  const NS = 'dalil-alnajeen-diyala-english-2026';
+  const THANKS_ENDPOINT = '/.netlify/functions/thanks';
   function hash(str){ let x = 2166136261; for(let i=0;i<str.length;i++){ x ^= str.charCodeAt(i); x = Math.imul(x, 16777619) >>> 0; } return 'k' + x.toString(36); }
   async function getJSON(url, allow404){
     const r = await fetch(url, {cache:'no-store'});
@@ -11542,14 +11547,12 @@ window.THANKS_API_URL = '';
   window.thanksGet = async function(apiKey){
     const k = hash(apiKey);
     if(window.THANKS_API_URL){ const d = await getJSON(window.THANKS_API_URL + '?action=get&key=' + k); return {value: Number(d.value)}; }
-    const d = await getJSON('https://api.counterapi.dev/v1/' + NS + '/' + k + '/', true);
-    return {value: d && d.count !== undefined ? Number(d.count) : 0};
+    const d = await getJSON(THANKS_ENDPOINT + '?action=get&key=' + k); return {value: Number(d.value)};
   };
   window.thanksHit = async function(apiKey){
     const k = hash(apiKey);
     if(window.THANKS_API_URL){ const d = await getJSON(window.THANKS_API_URL + '?action=hit&key=' + k); return {value: Number(d.value)}; }
-    const d = await getJSON('https://api.counterapi.dev/v1/' + NS + '/' + k + '/up');
-    return {value: Number(d.count)};
+    const d = await getJSON(THANKS_ENDPOINT + '?action=hit&key=' + k); return {value: Number(d.value)};
   };
 })();
 </script>
@@ -11679,15 +11682,14 @@ window.THANKS_API_URL = '';
   // ---------- تبديل المظهر (فاتح/داكن) مع الحفظ في localStorage ----------
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = document.getElementById('themeIcon');
-  let isLight = false;
-  try{ isLight = localStorage.getItem('dalil_theme') === 'light'; }catch(e){}
+  let isLight = true; try{ const savedTheme = localStorage.getItem('dalil_theme_v2'); if(savedTheme){ isLight = (savedTheme === 'light'); } }catch(e){}
   document.documentElement.setAttribute('data-theme', isLight ? 'light' : 'dark');
   themeIcon.textContent = isLight ? '☀️' : '🌙';
   themeToggle.addEventListener('click', ()=>{
     isLight = !isLight;
     document.documentElement.setAttribute('data-theme', isLight ? 'light' : 'dark');
     themeIcon.textContent = isLight ? '☀️' : '🌙';
-    try{ localStorage.setItem('dalil_theme', isLight ? 'light' : 'dark'); }catch(e){}
+    try{ localStorage.setItem('dalil_theme_v2', isLight ? 'light' : 'dark'); }catch(e){}
   });
 
   // ---------- اقتباس الهيرو المتغيّر ----------
@@ -11781,17 +11783,29 @@ window.THANKS_API_URL = '';
           return;
         }
 
+        const ua = navigator.userAgent || '';
+        const inApp = /Telegram|FBAN|FBAV|FB_IAB|Instagram|TikTok|musical_ly|BytedanceWebview|Snapchat|Line\/|; wv\)/i.test(ua);
+        const copyBtn = '<li><button type="button" class="hero-cta" style="margin-top:6px" onclick="window.copySiteLink().then(function(){ this.textContent=\'✅ نُسخ الرابط\'; }.bind(this)).catch(function(){ this.textContent=\'⚠️ انسخه يدوياً\'; }.bind(this))">📋 انسخ رابط الموقع</button></li>';
         if(isIOS){
           openInstallGuide(
-            '<li>١. اضغط زر المشاركة ⬆️ بالأسفل بمتصفح Safari.</li>' +
-            '<li>٢. مرّر لتحت واختر "Add to Home Screen" (إضافة إلى الشاشة الرئيسية).</li>' +
-            '<li>٣. اضغط "إضافة" بالأعلى.</li>'
+            '<li>١. افتح الموقع من متصفح <b>Safari</b> (مو من تلكرام أو فيسبوك أو تيك توك).</li>' +
+            '<li>٢. اضغط زر المشاركة ⬆️ بالأسفل.</li>' +
+            '<li>٣. مرّر لتحت واختر "Add to Home Screen" (إضافة إلى الشاشة الرئيسية).</li>' +
+            '<li>٤. اضغط "إضافة" بالأعلى.</li>' + copyBtn
+          );
+        }else if(inApp){
+          openInstallGuide(
+            '<li>⚠️ أنت فاتح الموقع من داخل تطبيق (تلكرام / فيسبوك / تيك توك …) وهذي المتصفحات الداخلية <b>ما تدعم تثبيت الموقع</b>.</li>' +
+            '<li>١. انسخ رابط الموقع بالزر تحت.</li>' +
+            '<li>٢. افتح متصفح <b>Chrome</b> والصق الرابط بشريط العنوان.</li>' +
+            '<li>٣. اضغط «حفظ الموقع» مرة ثانية، أو من قائمة Chrome (⋮) اختر «تثبيت التطبيق».</li>' + copyBtn
           );
         }else{
           openInstallGuide(
             '<li>١. افتح قائمة المتصفح (⋮) بالزاوية.</li>' +
-            '<li>٢. دوّر على خيار "تثبيت التطبيق" أو "إضافة إلى الشاشة الرئيسية".</li>' +
-            '<li>٣. أكّد الإضافة.</li>'
+            '<li>٢. اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».</li>' +
+            '<li>٣. أكّد الإضافة.</li>' +
+            '<li>إذا ما ظهر الخيار: تأكد أنك تفتح الموقع من <b>Chrome</b> مباشرة، وانتظر ثواني بعد فتح الصفحة ثم جرّب مرة ثانية.</li>' + copyBtn
           );
         }
       });
@@ -12775,6 +12789,27 @@ window.copySiteLink = async function(){
   }
   s.addEventListener('input', ()=>{ clearTimeout(timer); timer = setTimeout(jump, 500); });
   s.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ e.preventDefault(); clearTimeout(timer); jump(); s.blur(); } });
+})();
+</script>
+<script>
+/* ---- إخفاء شارة المنصّة الخارجية «Powered by Netlify» إن ظهرت ---- */
+(function(){
+  function scan(){
+    try{
+      document.querySelectorAll('body *').forEach(function(el){
+        if(el.dataset && el.dataset.badgeChecked === '1') return;
+        var sr = el.shadowRoot, txt = '';
+        if(sr){ txt = sr.textContent || ''; }
+        else if(el.children.length <= 6){ txt = el.textContent || ''; }
+        if(txt.length < 90 && /powered\s+by\s+netlify/i.test(txt)){ el.style.setProperty('display','none','important'); }
+        if(el.tagName === 'IFRAME' && /netlify/i.test(el.getAttribute('src') || '')){ el.style.setProperty('display','none','important'); }
+      });
+    }catch(e){}
+  }
+  var t; function later(){ clearTimeout(t); t = setTimeout(scan, 200); }
+  if(document.readyState !== 'loading') scan(); else document.addEventListener('DOMContentLoaded', scan);
+  window.addEventListener('load', function(){ scan(); setTimeout(scan, 1500); setTimeout(scan, 4000); });
+  new MutationObserver(later).observe(document.documentElement, {childList:true, subtree:true});
 })();
 </script>
 </body>

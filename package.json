@@ -1,0 +1,9 @@
+{
+  "name": "survivors-guide",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Survivors Guide - English Dept",
+  "dependencies": {
+    "@netlify/blobs": "*"
+  }
+}
