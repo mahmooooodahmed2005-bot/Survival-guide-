@@ -4,6 +4,6 @@
   "version": "1.0.0",
   "description": "Survivors Guide - English Dept",
   "dependencies": {
-    "@netlify/blobs": "*"
+    "@netlify/blobs": "^11.1.7"
   }
 }

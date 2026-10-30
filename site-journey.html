@@ -2,9 +2,14 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14213D">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <title>رحلة دليل الناجين</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500;600;700&family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700;900&family=EB+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -19,7 +24,11 @@
     --green-ok:#3C6B4A;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  img,svg,video{max-width:100%;}
+  h1,h2,h3,p,a,span{overflow-wrap:anywhere;}
+  .milestone{scroll-margin-top:24px;}
+  :focus-visible{outline:3px solid var(--brass); outline-offset:3px; border-radius:4px;}
   body{
     background:var(--ink);
     background-image:
@@ -28,6 +37,8 @@
     color:var(--paper);
     font-family:'Tajawal', sans-serif;
     overflow-x:hidden;
+    min-height:100vh;
+    min-height:100dvh;
   }
   ::selection{background:var(--brass); color:var(--ink-deep);}
 
@@ -36,6 +47,7 @@
     position:fixed;
     inset:0;
     z-index:1000;
+    padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -73,6 +85,8 @@
   .book-cover{
     width:min(94vw, 560px);
     height:min(90vh, 760px);
+    height:min(90dvh, 760px);
+    max-height:100%;
     background:
       linear-gradient(135deg, #1c2d54 0%, #0D1730 55%, #0a1226 100%);
     border-radius:6px 3px 3px 6px;
@@ -167,6 +181,7 @@
     justify-content:center;
     text-align:center;
     padding:20px;
+    overflow:hidden;
   }
   .cover-frame::before{
     content:"";
@@ -242,7 +257,7 @@
   .cover-quote .ar{
     margin-top:6px;
     font-size:11.5px;
-    color:rgba(242,234,211,0.55);
+    color:rgba(242,234,211,0.78);
   }
   .cover-quote .who{
     margin-top:8px;
@@ -290,12 +305,13 @@
   /* ---------- HERO ---------- */
   .hero{
     min-height:100vh;
+    min-height:100dvh;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
     text-align:center;
-    padding:40px 24px;
+    padding:max(40px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(40px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
     position:relative;
   }
   .hero-compass{
@@ -356,9 +372,10 @@
     gap:8px;
     text-decoration:none;
     color:var(--paper-warm);
-    font-size:13px;
+    font-size:14px;
     font-weight:500;
-    padding:9px 16px;
+    min-height:44px;
+    padding:9px 18px;
     border:1px solid rgba(194,154,60,0.3);
     border-radius:999px;
     transition:all .2s ease;
@@ -377,8 +394,9 @@
 
   /* ---------- TOP PROGRESS BAR ---------- */
   .top-progress{
-    position:sticky;
-    top:0;
+    position:fixed;
+    top:0; left:0;
+    max-width:100%;
     height:3px;
     background:var(--brass);
     width:0%;
@@ -405,7 +423,7 @@
     position:relative;
     max-width:900px;
     margin:0 auto;
-    padding:20px 24px 140px;
+    padding:20px max(24px, env(safe-area-inset-right)) 140px max(24px, env(safe-area-inset-left));
   }
   .trail-line{
     position:absolute;
@@ -499,7 +517,7 @@
   @media (max-width:720px){
     .trail-line, .trail-progress{right:24px; transform:none;}
     .trail-marker{right:24px; transform:translate(50%, -50%);}
-    .milestone{width:100%; padding-right:56px;}
+    .milestone{width:100%; padding-inline-start:56px; padding-inline-end:0;}
     .milestone:nth-child(odd), .milestone:nth-child(even){
       margin:0 0 70px; text-align:right;
     }
@@ -509,7 +527,7 @@
   .finale{
     position:relative;
     text-align:center;
-    padding:100px 24px 120px;
+    padding:100px max(24px, env(safe-area-inset-right)) 120px max(24px, env(safe-area-inset-left));
     overflow:hidden;
   }
   .finale-inner{
@@ -535,12 +553,17 @@
     line-height:1.9;
   }
   .cta-btn{
-    display:inline-block;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:48px;
+    max-width:100%;
+    text-align:center;
     background:var(--brass);
     color:var(--ink-deep);
     font-weight:700;
     font-size:15.5px;
-    padding:16px 40px;
+    padding:14px clamp(20px, 6vw, 40px);
     border-radius:999px;
     text-decoration:none;
     box-shadow:0 12px 30px rgba(194,154,60,0.35);
@@ -570,16 +593,54 @@
 
   footer{
     text-align:center;
-    padding:30px 20px 50px;
-    color:rgba(242,234,211,0.4);
+    padding:30px 20px calc(50px + env(safe-area-inset-bottom));
+    color:rgba(242,234,211,0.72);
     font-size:13px;
   }
+  /* شاشات قصيرة (وضع أفقي): نقلّل الزخارف عشان ما تنقص */
+  @media (max-height:560px){
+    .cover-compass, .cover-fleuron, .cover-eyebrow, .cover-quote .ar{display:none;}
+    .cover-frame{inset:10px; padding:10px;}
+    .cover-quote{margin-top:10px; padding-top:10px;}
+    .shakespeare-medallion{width:44px; height:44px; margin-bottom:6px;}
+    .shakespeare-medallion svg{width:30px; height:30px;}
+    .cover-hint{margin-top:12px;}
+    .cover-sub{margin-top:8px;}
+    .hero{min-height:auto; padding-block:48px;}
+  }
+  @media (max-width:360px){
+    .book-ribbon{right:24px;}
+    .cover-frame{inset:12px; padding:12px;}
+    .toc-nav a{padding:9px 14px;}
+  }
+  @media (min-width:1600px){
+    .trail-wrap{max-width:1100px;}
+    .m-card p{font-size:15px;}
+  }
+
+  /* حركة أقل لمن يفضّل ذلك */
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *, *::before, *::after{
+      animation-duration:.01ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:.01ms !important;
+    }
+    .ambient-dust, .spark{display:none;}
+    .eyebrow, .hero h1, .hero p, .scroll-hint{opacity:1;}
+    .milestone, .finale-inner{opacity:1; transform:none;}
+    .cta-btn{animation:none;}
+  }
 </style>
+<noscript><style>
+  .book-stage{display:none;}
+  .milestone, .finale-inner, .eyebrow, .hero h1, .hero p, .scroll-hint{opacity:1; transform:none;}
+</style></noscript>
 </head>
 <body>
 
   <!-- ===== غلاف الكتاب الافتتاحي ===== -->
-  <div class="book-stage" id="bookStage">
+  <div class="book-stage" id="bookStage" role="button" tabindex="0" aria-label="افتح الكتاب وابدأ الرحلة">
     <div class="entrance-flash"></div>
     <div class="book-entrance">
     <div class="book-cover" id="bookCover">
@@ -591,7 +652,7 @@
         <div class="cover-corner tr"></div>
         <div class="cover-corner bl"></div>
         <div class="cover-corner br"></div>
-        <svg class="cover-compass" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <svg class="cover-compass" aria-hidden="true" focusable="false" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
           <!-- شعار: كتاب مفتوح + ريشة + غصنا غار، يرمز لقسم الأدب واللغة الإنجليزية -->
           <path d="M40 26 C33 21 22 19 14 21 L14 54 C22 52 33 54 40 59 C47 54 58 52 66 54 L66 21 C58 19 47 21 40 26 Z"
                 fill="none" stroke="#C29A3C" stroke-width="1.6" stroke-linejoin="round"/>
@@ -600,7 +661,7 @@
           <path d="M12 62 C16 58 20 62 16 66 C14 68 10 68 8 66 C10 64 11 63 12 62 Z" fill="none" stroke="#C29A3C" stroke-width="1.1" opacity="0.85"/>
           <path d="M68 62 C64 58 60 62 64 66 C66 68 70 68 72 66 C70 64 69 63 68 62 Z" fill="none" stroke="#C29A3C" stroke-width="1.1" opacity="0.85"/>
         </svg>
-        <svg class="cover-fleuron" viewBox="0 0 120 20" xmlns="http://www.w3.org/2000/svg">
+        <svg class="cover-fleuron" aria-hidden="true" focusable="false" viewBox="0 0 120 20" xmlns="http://www.w3.org/2000/svg">
           <path d="M2 10 C25 10 30 3 38 3 C44 3 44 10 38 10 C44 10 44 17 38 17 C30 17 25 10 2 10 Z" fill="none" stroke="#C29A3C" stroke-width="1"/>
           <circle cx="60" cy="10" r="3" fill="#C29A3C"/>
           <path d="M118 10 C95 10 90 3 82 3 C76 3 76 10 82 10 C76 10 76 17 82 17 C90 17 95 10 118 10 Z" fill="none" stroke="#C29A3C" stroke-width="1"/>
@@ -632,10 +693,10 @@
   </div>
 
   <!-- غبار ذهبي عائم بكل الصفحة -->
-  <div class="ambient-dust" id="ambientDust"></div>
+  <div class="ambient-dust" id="ambientDust" aria-hidden="true"></div>
 
   <section class="hero">
-    <svg class="hero-compass" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+    <svg class="hero-compass" aria-hidden="true" focusable="false" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
       <circle cx="40" cy="40" r="36" fill="none" stroke="#C29A3C" stroke-width="2"/>
       <circle cx="40" cy="40" r="3" fill="#C29A3C"/>
       <path d="M40 12 L46 40 L40 68 L34 40 Z" fill="#C29A3C" opacity="0.9"/>
@@ -657,11 +718,11 @@
     <div class="scroll-hint">↓ انزل لتشوف كل محطة بالرحلة</div>
   </section>
 
-  <div class="top-progress" id="topProgress"></div>
+  <div class="top-progress" id="topProgress" role="presentation"></div>
 
   <div class="trail-wrap" id="trailWrap">
-    <div class="trail-line"></div>
-    <div class="trail-progress" id="trailProgress"></div>
+    <div class="trail-line" aria-hidden="true"></div>
+    <div class="trail-progress" id="trailProgress" aria-hidden="true"></div>
 
     <div class="milestone" id="m1" data-marker="💡">
       <div class="m-card">
@@ -723,7 +784,7 @@
     <div class="finale-inner" id="finaleInner">
       <h2>والرحلة <span>مستمرة</span> 🚀</h2>
       <p>هذا مو موقع خلص — هذا مشروع حي يكبر بيك أنت. كل مساهمة تسويها تصير جزء من رحلة يستفيد منها كل طالب يجي بعدك.</p>
-      <a href="https://survivors-guide-english-dept.netlify.app" target="_blank" class="cta-btn">🧭 زور دليل الناجين الآن</a>
+      <a href="https://survivors-guide-english-dept.netlify.app" target="_blank" rel="noopener noreferrer" class="cta-btn">🧭 زور دليل الناجين الآن</a>
     </div>
   </section>
 
@@ -746,11 +807,23 @@
     if(e.propertyName === 'transform'){
       bookStage.classList.add('hidden');
       document.body.style.overflow = '';
+      window.scrollTo(0, 0);
     }
   });
 
   // الطالب يقدر يضغط بأي مكان بالغلاف عشان يفتحه فوراً لو ما يبي ينتظر
   bookStage.addEventListener('click', openBook);
+  bookStage.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openBook(); }
+  });
+  bookStage.focus({preventScroll:true});
+
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion){
+    bookStage.classList.add('hidden');
+    document.body.style.overflow = '';
+    bookOpened = true;
+  }
 
   // وقت قراءة أطول قبل ما يفتح تلقائي (كافي لقراءة العنوان والوصف)
   setTimeout(openBook, 4500);
@@ -781,7 +854,8 @@
     const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
     topProgress.style.width = pct + '%';
   }
-  window.addEventListener('scroll', updateTopProgress);
+  window.addEventListener('scroll', updateTopProgress, {passive:true});
+  window.addEventListener('resize', updateTopProgress);
   updateTopProgress();
 
   // ---- تحريك خط التقدم الذهبي مع السكرول ----
@@ -796,7 +870,8 @@
     scrolled = Math.max(0, Math.min(scrolled, wrapHeight));
     trailProgress.style.height = scrolled + 'px';
   }
-  window.addEventListener('scroll', updateTrail);
+  window.addEventListener('scroll', updateTrail, {passive:true});
+  window.addEventListener('resize', updateTrail);
   updateTrail();
 
   // ---- إضافة أيقونة الدائرة بكل محطة ----
@@ -809,9 +884,8 @@
     m.style.position = 'relative';
     trailWrap.appendChild(marker);
     function positionMarker(){
-      const wrapTop = trailWrap.getBoundingClientRect().top;
-      const mTop = m.getBoundingClientRect().top;
-      const offset = (mTop - wrapTop) + (m.offsetHeight/2);
+      // offsetTop لا يتأثر بحركة الظهور (translateY)
+      const offset = m.offsetTop + (m.offsetHeight/2);
       marker.style.top = offset + 'px';
     }
     positionMarker();
@@ -830,6 +904,10 @@
   window.addEventListener('load', ()=>{
     allPositionFns.forEach(fn => fn());
   });
+
+  if(window.ResizeObserver){
+    new ResizeObserver(()=> allPositionFns.forEach(fn => fn())).observe(trailWrap);
+  }
 
   // ---- ظهور تدريجي عند الوصول بالسكرول ----
   const observer = new IntersectionObserver((entries)=>{

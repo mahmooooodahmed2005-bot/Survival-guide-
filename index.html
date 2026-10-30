@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>دليل الناجين | قسم اللغة الإنجليزية</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#14213D">
@@ -595,7 +595,7 @@
   }
   .admin-roles-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(190px, 1fr));
+    grid-template-columns:repeat(auto-fit, minmax(min(190px,100%), 1fr));
     gap:14px;
   }
   .admin-role-card{
@@ -632,7 +632,7 @@
 
   .faculty-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns:repeat(auto-fill, minmax(min(220px,100%), 1fr));
     gap:20px;
   }
   .faculty-card{
@@ -759,10 +759,10 @@
     margin:0 auto 10px;
   }
   .faculty-grid-minimal{
-    grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns:repeat(auto-fill, minmax(min(200px,100%), 1fr));
     gap:10px;
   }
-  #facultyGrid{grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));}
+  #facultyGrid{grid-template-columns:repeat(auto-fill, minmax(min(200px,100%), 1fr));}
 
   /* ---------- DEPARTMENT INFO SECTION ---------- */
   .dept-toggle-btn{
@@ -1707,7 +1707,7 @@
     margin:0 auto;
     padding:0 24px 90px;
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
     gap:26px;
   }
 
@@ -3006,6 +3006,39 @@ body.focus-lock{ overflow:hidden; }
 .road-content p{ font-size:14px; line-height:1.85; color:var(--text-dark); margin:0 0 10px; }
 .road-content p b{ color:var(--stamp); }
 .road-content .subject-guide p b:only-child{ font-family:'Tajawal',sans-serif; }
+
+/* ---------- RESPONSIVE / A11Y HARDENING ---------- */
+.grid>*{min-width:0;max-width:100%;}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+body{min-height:100vh;min-height:100dvh;overflow-x:hidden;overflow-wrap:break-word;padding-inline:env(safe-area-inset-right) env(safe-area-inset-left);padding-bottom:env(safe-area-inset-bottom);}
+img,video,svg,canvas,iframe{max-width:100%;}
+img,video{height:auto;}
+pre{max-width:100%;overflow-x:auto;white-space:pre-wrap;}
+table{max-width:100%;}
+table.grades,.road-table{table-layout:auto;}
+.road-table th,.road-table td,table.grades td{overflow-wrap:anywhere;}
+.theme-toggle{width:44px;height:44px;top:max(18px,env(safe-area-inset-top));left:max(18px,env(safe-area-inset-left));}
+.powered-by-badge{bottom:max(16px,env(safe-area-inset-bottom));left:max(16px,env(safe-area-inset-left));max-width:calc(100vw - 32px);}
+.cert-overlay,.welcome-overlay,.focus-overlay{padding-top:max(18px,env(safe-area-inset-top));padding-bottom:max(18px,env(safe-area-inset-bottom));max-height:100vh;max-height:100dvh;}
+button,.faculty-details-toggle,.road-btn,.hero-utility-btn,.faculty-toggle-btn,.section-return-btn,.footer-action,.correction-btn{min-height:44px;}
+button:focus-visible,summary:focus-visible,select:focus-visible,textarea:focus-visible,[role="button"]:focus-visible{outline:3px solid var(--brass,#C29A3C);outline-offset:3px;}
+@media (max-width:380px){
+  .hero{padding-inline:14px;}
+  .footer-action{min-width:0;width:100%;}
+  .dept-journey-steps{grid-template-columns:1fr;}
+  .road-table{font-size:12px;}
+}
+@media (orientation:landscape) and (max-height:480px){
+  .hero{padding-top:48px;}
+  .hero-banner img{height:160px;}
+}
+@media (min-width:1600px){
+  html{font-size:112.5%;}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
+}
 </style>
 
 </head>
@@ -3017,7 +3050,7 @@ body.focus-lock{ overflow:hidden; }
 
   <section class="hero">
     <figure class="hero-banner">
-      <img src="assets/hero-gate.jpg" alt="بوابة قسم اللغة الإنجليزية">
+      <img src="assets/hero-gate.jpg" width="960" height="1280" alt="بوابة قسم اللغة الإنجليزية" decoding="async">
       <div class="hero-banner-overlay"></div>
       <figcaption class="hero-banner-quote">
         <span id="heroQuoteEn">“Reading maketh a full man”</span>
@@ -11296,6 +11329,7 @@ body.focus-lock{ overflow:hidden; }
     </div>
 
 
+</div><!-- /#grid -->
 
 <section class="about-section" id="aboutSection">
     <div class="about-card">

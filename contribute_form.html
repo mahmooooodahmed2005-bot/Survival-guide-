@@ -2,7 +2,12 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#14213D">
 <title>ساهموا | دليل الناجين — قسم اللغة الإنجليزية</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -17,103 +22,115 @@
     --bg-body:#EDE6D3; --text-body:#231D14; --text-body-soft:#5C5442; --paper:#FFFFFF; --paper-warm:#F4EEDD;
   }
   *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  img,svg,video{max-width:100%; height:auto;}
   body{
     margin:0; background:var(--bg-body); font-family:'Tajawal',sans-serif; color:var(--text-body);
-    padding:0 0 60px;
+    min-height:100vh; min-height:100dvh; line-height:1.6; overflow-wrap:anywhere;
+    padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) calc(60px + env(safe-area-inset-bottom,0px)) env(safe-area-inset-left,0px);
   }
+  button,input,select,textarea{font-family:inherit;}
+  :focus-visible{outline:3px solid var(--brass); outline-offset:2px;}
   .theme-toggle{
-    position:fixed; top:16px; left:16px; z-index:50; width:40px; height:40px; border-radius:50%;
+    position:fixed; top:calc(12px + env(safe-area-inset-top,0px)); inset-inline-end:calc(12px + env(safe-area-inset-right,0px)); z-index:50; width:44px; height:44px; border-radius:50%;
     border:1px solid rgba(194,154,60,0.4); background:rgba(194,154,60,0.1); color:var(--text-body);
     font-size:17px; cursor:pointer; display:flex; align-items:center; justify-content:center;
   }
-  .hero{ text-align:center; padding:56px 20px 24px; }
+  .hero{ text-align:center; padding:clamp(56px,10vw,72px) clamp(16px,4vw,24px) 24px; }
   .eyebrow{
     display:inline-block; font-size:12px; font-weight:700; letter-spacing:2px; color:var(--brass);
     border:1px solid rgba(194,154,60,0.5); padding:6px 18px; border-radius:999px; margin-bottom:18px;
   }
   h1{ font-family:'Aref Ruqaa',serif; font-size:clamp(30px,6vw,42px); color:var(--text-body); margin:0 0 10px;}
   h1 span{color:var(--brass);}
-  .hero p{ font-size:14.5px; color:var(--text-body-soft); max-width:480px; margin:0 auto; line-height:1.9;}
+  .hero p{ font-size:clamp(14px,2.5vw,15.5px); color:var(--text-body-soft); max-width:480px; margin:0 auto; line-height:1.9;}
 
-  .shell{ max-width:640px; margin:0 auto; padding:0 18px; }
+  .shell{ max-width:640px; margin:0 auto; padding-inline:clamp(12px,4vw,18px); }
   .card{
-    background:var(--paper); color:var(--text-dark); border-radius:16px; padding:26px 22px;
+    background:var(--paper); color:var(--text-dark); border-radius:16px; padding:clamp(18px,5vw,26px) clamp(14px,4.5vw,22px);
     box-shadow:0 18px 45px rgba(0,0,0,0.35); margin-bottom:20px;
   }
-  .field-label{ font-weight:700; font-size:13.5px; margin-bottom:8px; display:block; color:var(--ink-deep);}
-  .opt{ font-weight:500; font-size:11.5px; color:var(--text-soft);}
+  .field-label{ font-weight:700; font-size:14px; margin-bottom:8px; display:block; color:var(--ink-deep);}
+  .opt{ font-weight:500; font-size:12px; color:var(--text-soft);}
   .req{ color:var(--stamp);}
   input[type=text], input[type=email], select, textarea{
     width:100%; padding:11px 13px; border-radius:9px; border:1.5px solid rgba(20,33,61,0.15);
-    font-family:'Tajawal'; font-size:14px; color:var(--text-dark); background:#fff; outline:none;
-    margin-bottom:14px;
+    font-family:'Tajawal',sans-serif; font-size:16px; min-height:44px; color:var(--text-dark); background:#fff;
+    margin-bottom:14px; max-width:100%;
   }
-  textarea{ min-height:80px; resize:vertical; }
-  .hint{ font-size:11.5px; color:var(--text-soft); margin:-8px 0 12px; line-height:1.7;}
-  .err{ display:none; color:var(--stamp); font-size:11.5px; margin:-8px 0 12px;}
+  input[type=text]:focus, input[type=email]:focus, select:focus, textarea:focus{ border-color:var(--ink); outline:3px solid rgba(194,154,60,.55); outline-offset:1px; }
+  .invalid{ background:#FFF3F2 !important; }
+  textarea{ min-height:96px; resize:vertical; }
+  .hint{ font-size:12px; color:var(--text-soft); margin:-8px 0 12px; line-height:1.7;}
+  .err{ display:none; color:var(--stamp); font-size:12.5px; font-weight:700; margin:-8px 0 12px;}
   .err.show{ display:block; }
   .invalid{ border-color:var(--stamp) !important; }
 
-  .stage-select{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:6px;}
+  .stage-select{ display:grid; grid-template-columns:repeat(auto-fit,minmax(64px,1fr)); gap:8px; margin-bottom:6px;}
   .stage-opt{
-    text-align:center; padding:12px 4px; border-radius:10px; border:1.5px solid rgba(20,33,61,0.15);
-    cursor:pointer; font-weight:700; font-size:13px; color:var(--text-soft); transition:all .15s ease;
+    text-align:center; padding:12px 4px; min-height:44px; background:#fff; border-radius:10px; border:1.5px solid rgba(20,33,61,0.15);
+    cursor:pointer; font-weight:700; font-size:14px; color:var(--text-soft); transition:all .15s ease;
   }
   .stage-opt.active{ background:var(--ink-deep); color:var(--brass); border-color:var(--ink-deep);}
 
   .dawam-select{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;}
   .dawam-opt{
-    text-align:center; padding:11px 4px; border-radius:10px; border:1.5px solid rgba(20,33,61,0.15);
-    cursor:pointer; font-weight:700; font-size:13px; color:var(--text-soft);
+    text-align:center; padding:11px 4px; min-height:44px; background:#fff; border-radius:10px; border:1.5px solid rgba(20,33,61,0.15);
+    cursor:pointer; font-weight:700; font-size:14px; color:var(--text-soft);
   }
   .dawam-opt.active{ background:var(--brass); color:var(--ink-deep); border-color:var(--brass);}
 
   .material-block{
     background:var(--paper-warm); border-radius:12px; padding:18px 16px; margin-bottom:14px;
-    position:relative; border-right:3px solid var(--brass);
+    position:relative; border-inline-start:3px solid var(--brass);
   }
   .material-block-head{
-    display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;
+    display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:12px;
   }
   .material-block-title{ font-family:'Aref Ruqaa',serif; font-size:17px; color:var(--ink-deep); font-weight:700;}
   .remove-material-btn{
-    background:none; border:none; color:var(--stamp); font-size:13px; font-weight:700; cursor:pointer;
+    background:none; border:none; color:var(--stamp); font-size:14px; font-weight:700; cursor:pointer; min-height:44px; padding:0 10px;
   }
   .checkbox-row{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;}
   .chip{
     display:inline-flex; align-items:center; gap:6px; background:#fff; border:1.5px solid rgba(20,33,61,0.15);
-    padding:7px 12px; border-radius:999px; font-size:12.5px; cursor:pointer;
+    padding:10px 14px; min-height:44px; border-radius:999px; font-size:14px; cursor:pointer;
   }
-  .chip input{ width:auto; margin:0; padding:0;}
+  .chip input{ width:20px; height:20px; min-height:0; margin:0; padding:0; accent-color:var(--ink-deep);}
 
   .add-material-btn{
-    width:100%; padding:12px; border-radius:10px; border:2px dashed rgba(194,154,60,0.5);
-    background:transparent; color:var(--brass); font-weight:700; font-size:14px; cursor:pointer; margin-bottom:6px;
+    width:100%; padding:12px; min-height:48px; border-radius:10px; border:2px dashed rgba(194,154,60,0.7);
+    background:transparent; color:#7A5A12; font-weight:700; font-size:15px; cursor:pointer; margin-bottom:6px;
   }
 
-  .consent{ display:flex; gap:10px; align-items:flex-start; font-size:12.5px; color:var(--text-soft); line-height:1.8;}
-  .consent input{ width:auto; margin-top:3px;}
+  .consent{ display:flex; gap:10px; align-items:flex-start; font-size:14px; color:var(--text-soft); line-height:1.8; min-height:44px; cursor:pointer;}
+  .consent input{ width:22px; height:22px; min-height:0; flex:none; margin:2px 0 0; accent-color:var(--ink-deep);}
 
   .submit-btn{
-    width:100%; padding:15px; border-radius:12px; border:none; background:var(--stamp); color:#fff;
+    width:100%; padding:15px; min-height:48px; border-radius:12px; border:none; background:var(--stamp); color:#fff;
     font-weight:700; font-size:15.5px; cursor:pointer; margin-top:8px;
   }
   .submit-btn:disabled{ opacity:.5; cursor:wait;}
-  .status{ text-align:center; font-size:13px; margin-top:14px; color:var(--text-body-soft); display:none;}
+  .status{ text-align:center; font-size:14px; margin-top:14px; color:var(--text-body-soft); display:none;}
   .status.show{ display:block;}
   .status a{ color:var(--brass); font-weight:700;}
 
   .note-box{
     background:rgba(194,154,60,0.1); border:1px dashed rgba(194,154,60,0.4); border-radius:10px;
-    padding:12px 14px; font-size:12px; color:var(--text-body-soft); margin-bottom:16px; line-height:1.8;
+    padding:12px 14px; font-size:13px; color:var(--text-soft); margin-bottom:16px; line-height:1.8;
   }
 
-  footer{ text-align:center; padding:20px; font-size:12px; color:var(--text-body-soft);}
+  footer{ text-align:center; padding:20px; font-size:12.5px; color:var(--text-body-soft);}
+  .note-box{ background:rgba(194,154,60,0.14); }
+  .stage-opt,.dawam-opt{ font-family:inherit; }
+  @media (max-width:360px){ .card{ border-radius:12px; } .material-block{ padding:14px 10px; } }
+  @media (max-height:480px) and (orientation:landscape){ .hero{ padding-top:24px; } }
+  @media (prefers-reduced-motion:reduce){ *,*::before,*::after{ transition:none !important; animation:none !important; scroll-behavior:auto !important; } }
 </style>
 </head>
 <body>
 
-  <button id="themeToggle" class="theme-toggle">🌙</button>
+  <button id="themeToggle" class="theme-toggle" type="button" aria-label="تبديل الوضع الفاتح/الداكن">🌙</button>
 
   <section class="hero">
     <span class="eyebrow">قسم اللغة الإنجليزية</span>
@@ -123,21 +140,21 @@
 
   <div class="shell">
     <div class="card">
-      <span class="field-label">المرحلة الدراسية <span class="req">*</span></span>
-      <div class="stage-select" id="stageSelect">
-        <div class="stage-opt" data-stage="1">الأولى</div>
-        <div class="stage-opt" data-stage="2">الثانية</div>
-        <div class="stage-opt" data-stage="3">الثالثة</div>
-        <div class="stage-opt" data-stage="4">الرابعة</div>
+      <span class="field-label" id="lblStage">المرحلة الدراسية <span class="req">*</span></span>
+      <div class="stage-select" id="stageSelect" role="group" aria-labelledby="lblStage">
+        <button type="button" class="stage-opt" data-stage="1" aria-pressed="false">الأولى</button>
+        <button type="button" class="stage-opt" data-stage="2" aria-pressed="false">الثانية</button>
+        <button type="button" class="stage-opt" data-stage="3" aria-pressed="false">الثالثة</button>
+        <button type="button" class="stage-opt" data-stage="4" aria-pressed="false">الرابعة</button>
       </div>
-      <div class="err" id="errStage">اختر المرحلة أول شي.</div>
+      <div class="err" id="errStage" role="alert">اختر المرحلة أول شي.</div>
 
-      <span class="field-label">الدوام <span class="req">*</span></span>
-      <div class="dawam-select" id="dawamSelect">
-        <div class="dawam-opt" data-dawam="sabahi">🌅 صباحي</div>
-        <div class="dawam-opt" data-dawam="masaay">🌆 مسائي</div>
+      <span class="field-label" id="lblDawam">الدوام <span class="req">*</span></span>
+      <div class="dawam-select" id="dawamSelect" role="group" aria-labelledby="lblDawam">
+        <button type="button" class="dawam-opt" data-dawam="sabahi" aria-pressed="false">🌅 صباحي</button>
+        <button type="button" class="dawam-opt" data-dawam="masaay" aria-pressed="false">🌆 مسائي</button>
       </div>
-      <div class="err" id="errDawam">اختر الدوام.</div>
+      <div class="err" id="errDawam" role="alert">اختر الدوام.</div>
 
       <div class="note-box">
         ✍️ اكتب المعلومات بأسلوب علمي محايد — ركّز على <b>أسلوب التدريس والتعامل مع المحاضرة</b> و<b>النشاطات المفضلة</b> (Presentations، تقارير...)، وابتعد عن الانطباعات الشخصية عن شخصية الدكتور.
@@ -149,16 +166,16 @@
 
     <div class="card">
       <label class="field-label" for="fTelegram">تلكرامك <span class="opt">(اختياري)</span></label>
-      <input type="text" id="fTelegram" placeholder="username@ (لو حبينا نتواصل لتوضيح شي)">
+      <input type="text" id="fTelegram" name="telegram" dir="ltr" autocomplete="off" autocapitalize="none" spellcheck="false" inputmode="text" placeholder="username@ (لو حبينا نتواصل لتوضيح شي)">
 
-      <label class="consent">
-        <input type="checkbox" id="fConsent">
+      <label class="consent" for="fConsent">
+        <input type="checkbox" id="fConsent" aria-describedby="errConsent">
         <span>أوافق على مشاركة هذي المعلومات ضمن دليل الناجين، مع إمكانية تعديلها أو تلخيصها. <span class="req">*</span></span>
       </label>
-      <div class="err" id="errConsent">هذا الشرط إلزامي.</div>
+      <div class="err" id="errConsent" role="alert">هذا الشرط إلزامي.</div>
 
       <button type="button" class="submit-btn" id="submitBtn">تجهيز المساهمة + تنزيل الملف 📦</button>
-      <div class="status" id="status"></div>
+      <div class="status" id="status" role="status" aria-live="polite"></div>
     </div>
   </div>
 
@@ -178,7 +195,8 @@
   document.querySelectorAll(".stage-opt").forEach(el=>{
     el.addEventListener("click", ()=>{
       document.querySelectorAll(".stage-opt").forEach(x=>x.classList.remove("active"));
-      el.classList.add("active");
+      document.querySelectorAll(".stage-opt").forEach(x=>x.setAttribute("aria-pressed","false"));
+      el.classList.add("active"); el.setAttribute("aria-pressed","true");
       activeStage = el.dataset.stage;
       document.getElementById("errStage").classList.remove("show");
     });
@@ -186,7 +204,8 @@
   document.querySelectorAll(".dawam-opt").forEach(el=>{
     el.addEventListener("click", ()=>{
       document.querySelectorAll(".dawam-opt").forEach(x=>x.classList.remove("active"));
-      el.classList.add("active");
+      document.querySelectorAll(".dawam-opt").forEach(x=>x.setAttribute("aria-pressed","false"));
+      el.classList.add("active"); el.setAttribute("aria-pressed","true");
       activeDawam = el.dataset.dawam;
       document.getElementById("errDawam").classList.remove("show");
     });
@@ -205,28 +224,28 @@
     div.innerHTML =
       '<div class="material-block-head">' +
         '<span class="material-block-title">مادة ' + id + '</span>' +
-        '<button type="button" class="remove-material-btn" data-remove="'+id+'">✕ حذف</button>' +
+        '<button type="button" class="remove-material-btn" data-remove="'+id+'" aria-label="حذف المادة">✕ حذف</button>' +
       '</div>' +
-      '<label class="field-label">اسم المادة <span class="req">*</span></label>' +
-      '<input type="text" class="m-subject" placeholder="مثال: الشعر">' +
-      '<label class="field-label">اسم الدكتور/ة <span class="req">*</span></label>' +
-      '<input type="text" class="m-doctor" placeholder="مثال: Shahad M. Yahya">' +
-      '<label class="field-label">اللقب الأكاديمي <span class="opt">(اختياري)</span></label>' +
-      '<select class="m-title"><option value="">غير متأكد</option><option>Prof.</option><option>Asst. Professor</option><option>Lecturer</option><option>Asst. Lecturer</option><option>Dr.</option><option>Assist. Inst.</option></select>' +
-      '<label class="field-label">أسلوب التدريس والتعامل مع المحاضرة <span class="req">*</span></label>' +
-      '<textarea class="m-style" placeholder="مثال: نقاشي داخل القاعة، يعتمد على تحليل النصوص جماعياً، الحضور يؤثر على درجة السعي..."></textarea>' +
-      '<label class="field-label">النشاطات المفضلة عند الدكتور <span class="opt">(اختر ما ينطبق)</span></label>' +
-      '<div class="checkbox-row">' +
+      '<label class="field-label" for="s'+id+'">اسم المادة <span class="req">*</span></label>' +
+      '<input type="text" id="s'+id+'" class="m-subject" autocomplete="off" aria-required="true" placeholder="مثال: الشعر">' +
+      '<label class="field-label" for="d'+id+'">اسم الدكتور/ة <span class="req">*</span></label>' +
+      '<input type="text" id="d'+id+'" class="m-doctor" autocomplete="off" aria-required="true" placeholder="مثال: Shahad M. Yahya">' +
+      '<label class="field-label" for="t'+id+'">اللقب الأكاديمي <span class="opt">(اختياري)</span></label>' +
+      '<select id="t'+id+'" class="m-title"><option value="">غير متأكد</option><option>Prof.</option><option>Asst. Professor</option><option>Lecturer</option><option>Asst. Lecturer</option><option>Dr.</option><option>Assist. Inst.</option></select>' +
+      '<label class="field-label" for="y'+id+'">أسلوب التدريس والتعامل مع المحاضرة <span class="req">*</span></label>' +
+      '<textarea id="y'+id+'" class="m-style" aria-required="true" placeholder="مثال: نقاشي داخل القاعة، يعتمد على تحليل النصوص جماعياً، الحضور يؤثر على درجة السعي..."></textarea>' +
+      '<span class="field-label" id="a'+id+'">النشاطات المفضلة عند الدكتور <span class="opt">(اختر ما ينطبق)</span></span>' +
+      '<div class="checkbox-row" role="group" aria-labelledby="a'+id+'">' +
         '<label class="chip"><input type="checkbox" class="m-act" value="Presentations">Presentations</label>' +
         '<label class="chip"><input type="checkbox" class="m-act" value="تقارير">تقارير</label>' +
         '<label class="chip"><input type="checkbox" class="m-act" value="نقاش صفي">نقاش صفي</label>' +
         '<label class="chip"><input type="checkbox" class="m-act" value="اختبارات قصيرة">اختبارات قصيرة</label>' +
         '<label class="chip"><input type="checkbox" class="m-act" value="واجبات">واجبات</label>' +
       '</div>' +
-      '<label class="field-label">طريقة التقييم <span class="opt">(اختياري)</span></label>' +
-      '<input type="text" class="m-eval" placeholder="مثال: شهري 10/15، يومي 5">' +
-      '<label class="field-label">ملاحظات أكاديمية إضافية <span class="opt">(اختياري)</span></label>' +
-      '<textarea class="m-notes" placeholder="أي تفصيل مفيد آخر، بأسلوب موضوعي..."></textarea>';
+      '<label class="field-label" for="e'+id+'">طريقة التقييم <span class="opt">(اختياري)</span></label>' +
+      '<input type="text" id="e'+id+'" class="m-eval" autocomplete="off" placeholder="مثال: شهري 10/15، يومي 5">' +
+      '<label class="field-label" for="n'+id+'">ملاحظات أكاديمية إضافية <span class="opt">(اختياري)</span></label>' +
+      '<textarea id="n'+id+'" class="m-notes" placeholder="أي تفصيل مفيد آخر، بأسلوب موضوعي..."></textarea>';
     materialsContainer.appendChild(div);
     div.querySelector('[data-remove="'+id+'"]').addEventListener("click", ()=>{
       div.remove();
@@ -254,14 +273,14 @@
     if(!activeDawam){ document.getElementById("errDawam").classList.add("show"); ok = false; }
 
     const blocks = document.querySelectorAll(".material-block");
-    if(blocks.length === 0) ok = false;
+    if(blocks.length === 0){ makeMaterialBlock(); ok = false; }
     blocks.forEach(b=>{
       const subj = b.querySelector(".m-subject");
       const doc = b.querySelector(".m-doctor");
       const style = b.querySelector(".m-style");
       [subj, doc, style].forEach(f=>{
-        if(!f.value.trim()){ f.classList.add("invalid"); ok = false; }
-        else f.classList.remove("invalid");
+        if(!f.value.trim()){ f.classList.add("invalid"); f.setAttribute("aria-invalid","true"); ok = false; }
+        else { f.classList.remove("invalid"); f.removeAttribute("aria-invalid"); }
       });
     });
 
@@ -270,8 +289,17 @@
     } else {
       document.getElementById("errConsent").classList.remove("show");
     }
+    if(!ok){
+      const first = document.querySelector(".err.show, .invalid");
+      const firstErr = document.querySelector(".err.show");
+      const firstBad = document.querySelector(".invalid");
+      const target = (firstErr && firstBad) ? (firstErr.compareDocumentPosition(firstBad) & Node.DOCUMENT_POSITION_FOLLOWING ? firstErr : firstBad) : (firstErr || firstBad);
+      if(target){ target.scrollIntoView({block:"center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); if(target.focus && target === firstBad) target.focus({preventScroll:true}); }
+    }
     return ok;
   }
+  document.addEventListener("input", e=>{ if(e.target.classList && e.target.classList.contains("invalid") && e.target.value.trim()){ e.target.classList.remove("invalid"); e.target.removeAttribute("aria-invalid"); } });
+  document.getElementById("fConsent").addEventListener("change", e=>{ if(e.target.checked) document.getElementById("errConsent").classList.remove("show"); });
 
   function buildPayload(){
     const stageNames = {"1":"المرحلة الأولى","2":"المرحلة الثانية","3":"المرحلة الثالثة","4":"المرحلة الرابعة"};
@@ -307,9 +335,9 @@
     ).join('');
 
     return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">' +
-      '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+      '<meta name="viewport" content="width=device-width, initial-scale=1">' +
       '<title>مساهمة — دليل الناجين</title>' +
-      '<style>body{margin:0;background:#14213D;font-family:Tahoma,Arial,sans-serif;padding:30px 14px;}' +
+      '<style>body{margin:0;background:#14213D;font-family:Tahoma,Arial,sans-serif;padding:30px 14px;overflow-wrap:anywhere;}' +
       '.card{max-width:720px;margin:0 auto;background:#F2EAD3;border-radius:12px;padding:30px 26px;box-shadow:0 18px 45px rgba(0,0,0,0.45);}' +
       'h1{font-size:22px;color:#14213D;margin:14px 0 4px;}' +
       '.stamp{display:inline-block;background:#A6373A;color:#FBEDE2;font-size:11.5px;padding:5px 16px;border-radius:0 0 8px 8px;font-weight:700;}' +
@@ -339,9 +367,10 @@
     document.body.appendChild(a);
     a.click();
     a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 10000);
 
     const status = document.getElementById("status");
-    status.innerHTML = "✅ تنزّل الملف! دزّه الحين لـ <a href='" + RECEIVE_LINK + "' target='_blank'>بوت الاستقبال</a> وخلص.";
+    status.innerHTML = "✅ تنزّل الملف! دزّه الحين لـ <a href='" + RECEIVE_LINK + "' target='_blank' rel='noopener'>بوت الاستقبال</a> وخلص.";
     status.classList.add("show");
 
     btn.disabled = false;
