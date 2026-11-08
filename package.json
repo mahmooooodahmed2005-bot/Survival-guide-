@@ -1,8 +1,8 @@
 {
-  "name": "survivors-guide",
+  "name": "academic-compass",
   "private": true,
   "version": "1.0.0",
-  "description": "Survivors Guide - English Dept",
+  "description": "Academic Compass - English Dept",
   "dependencies": {
     "@netlify/blobs": "^11.1.7"
   }
